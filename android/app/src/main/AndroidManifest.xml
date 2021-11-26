@@ -2,6 +2,7 @@
     package="com.example.ethereum_login">
    <application
         android:label="ethereum_login"
+        android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

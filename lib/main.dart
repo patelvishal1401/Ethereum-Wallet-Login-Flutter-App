@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Web3Client ethClient;
   // JSON-RPC is a remote procedure call protocol encoded in JSON
   // Remote Procedure Call (RPC) is about executing a block of code on another server
-  String rpcUrl = 'http://0.0.0.0:8546';
+  String rpcUrl = 'http://10.0.2.2:8546';  //android simuletor localhost..
 
   @override
   void initState() {
