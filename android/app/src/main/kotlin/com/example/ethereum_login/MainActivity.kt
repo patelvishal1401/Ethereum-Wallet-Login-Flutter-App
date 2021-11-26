@@ -1,4 +1,4 @@
-package com.example.smart_contract
+package com.example.ethereum_login
 
 import io.flutter.embedding.android.FlutterActivity
 

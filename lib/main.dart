@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Smart Contract',
+      title: 'Ethereum Login App',
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
