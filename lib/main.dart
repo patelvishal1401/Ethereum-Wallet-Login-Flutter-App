@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Ethereum Login App',
+      title: 'Ethereum Wallet Login App',
       debugShowCheckedModeBanner: false,
       home: HomePage(),
     );
@@ -38,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   Web3Client ethClient;
   // JSON-RPC is a remote procedure call protocol encoded in JSON
   // Remote Procedure Call (RPC) is about executing a block of code on another server
-  String rpcUrl = 'http://10.0.2.2:8546';  //android simuletor localhost..
+  String rpcUrl = 'http://10.0.2.2:8546';  //android localhost..
 
   @override
   void initState() {
@@ -89,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    'Add Ethereum Wallet',
+                    'Ethereum Wallet Login App',
                     style: TextStyle(
                       fontSize: 30,
                       fontWeight: FontWeight.bold,
@@ -121,6 +120,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
+              // Add Wallet Using Private key
 
               Expanded(
                 child: Align(
@@ -131,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: FloatingActionButton.extended(
-                        heroTag: 'connect_wallet',
+                        heroTag: 'add_wallet',
                         onPressed: () async {
 
                           String text = pktextController.text.toString();
@@ -165,22 +165,25 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
 
-        DropdownButton<String>(
-            hint: Text("Please choose a wallet"),
-            value: _selectedWallet,
-            onChanged: (newVal) {
-              _selectedWallet = newVal;
-              debugPrint('_selectedWallet: $_selectedWallet');
-              setState(() {});
-            },
-            items: _wallets.map((String val) {
-              return new DropdownMenuItem<String>(
-                child: new Text(val),
-                value: val,
-              );
-            }).toList(),
+              // Choose All Listed Wallet
 
-        ),
+              DropdownButton<String>(
+                  hint: Text("Please choose a wallet"),
+                  value: _selectedWallet,
+                  onChanged: (newVal) {
+                    _selectedWallet = newVal;
+                    debugPrint('_selectedWallet: $_selectedWallet');
+                    setState(() {});
+                  },
+                  items: _wallets.map((String val) {
+                    return new DropdownMenuItem<String>(
+                      child: new Text(val),
+                      value: val,
+                    );
+                  }).toList(),
+              ),
+
+              // Login using selected wallet and get balance
 
               Expanded(
                 child: Align(
@@ -191,11 +194,10 @@ class _HomePageState extends State<HomePage> {
                     child: FittedBox(
                       fit: BoxFit.contain,
                       child: FloatingActionButton.extended(
-                        heroTag: 'connect_wallet',
+                        heroTag: 'login',
                         onPressed: () async {
 
                            if(!_selectedWallet.contains("Select Login Wallet")) {
-
                              int item = _wallets.indexOf(_selectedWallet,0);
                              debugPrint("Selected Item Position : $item");
                              String keyitem = _privatekeys.elementAt(item-1);
@@ -208,7 +210,6 @@ class _HomePageState extends State<HomePage> {
                              getBalance = balance.getInEther.toString();
 
                              setState(() {});
-
                            }
                            else
                              {
@@ -224,13 +225,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              Expanded(
 
+              // View balance
+
+              Expanded(
                 child: Align(
                   child: SizedBox(
                     height: 100,
                     width: 350,
-
                     child: Align(
                       alignment: Alignment.center,
                       child: Text(
